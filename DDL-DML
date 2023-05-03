@@ -1,0 +1,104 @@
+/* creating tabe */
+create table student( 
+    rollno int, 
+    name varchar(300), 
+    address varchar(300), 
+    age int 
+)
+/* inserting data */
+insert into student(rollno,name,address,age) 
+values(1,'ram','delhi',18)
+insert into student(rollno,name,address,age) 
+values(2,'ramesh','gurgaon',18)
+insert into student(rollno,name,address,age) 
+values(3,'sujit','rohtak',20)
+insert into student(rollno,name,address,age) 
+values(4,'suresh','delhi',18)
+insert into student(rollno,name,address,age) 
+values(1,'ram','delhi',18)
+
+/* Creating employee table */
+CREATE TABLE EMP(   
+  EMPNO int,   
+  ENAME varchar(20),   
+  JOB varchar(20),   
+  MGR int,   
+  HIREDATE date,   
+  SAL int,   
+  COMM int,   
+  DEPTNO int   
+)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7369,'SMITH','CLERK',7902,'17-DEC-80',800,20)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO)   
+VALUES(7499,'ALLEN','SALESMAN',7698,'20-FEB-81',1600,300,30)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO)   
+VALUES(7521,'WARD','SALESMAN',7698,'22-FEB-81',1250,500,30)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7566,'JONES','MANAGER',7839,'02-APR-81',2975,20)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO)   
+VALUES(7654,'MARTIN','SALESMAN',7698,'28-SEP-81',1250,1400,30)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7698,'BLAKE','MANAGER',7839,'01-MAY-81',2850,30)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7782,'CLARK','MANAGER',7839,'09-JUN-81',2450,10)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7788,'SCOTT','ANALYST',7566,'19-APR-87',3000,20)
+INSERT INTO EMP(EMPNO,ENAME,JOB,HIREDATE,SAL,DEPTNO)   
+VALUES(7839,'KING','PRESIDENT','17-NOV-81',5000,10)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO)   
+VALUES(7844,'TURNER','SALESMAN',7698,'08-SEP-81',1500,0,30)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7876,'ADAMS','CLERK',7788,'23-MAY-87',1100,20)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7900,'JAMES','CLERK',7698,'03-DEC-81',950,30)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7902,'FORD','ANALYST',7566,'03-DEC-81',3000,20)
+INSERT INTO EMP(EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,DEPTNO)   
+VALUES(7934,'MILLER','CLERK',7782,'23-JAN-82',1300,10)
+
+/*Printing the data */
+select a.ename,a.sal,a.deptno,b.salavg 
+from emp a, 
+(select deptno,avg(sal) salavg 
+    from emp 
+    group by deptno)b 
+where a.deptno=b.deptno 
+and a.sal>b.salavg
+
+select ename,deptno,sal,comm 
+from emp 
+where(sal,nvl(comm,-1)) 
+in (select sal, nvl (comm,-1) 
+    from emp 
+    where deptno=30)
+    
+SELECT ENAME,JOB,SAL FROM EMP  
+WHERE SAL= ANY(SELECT SAL FROM EMP  
+               WHERE ENAME='SCOTT' OR ENAME ='WARD')
+               
+/* Creating the table*/
+
+create table dept( 
+    deptno int, 
+    dname varchar(300), 
+    loc varchar(300) 
+)
+
+insert into dept (deptno,dname,loc)values  
+(10,'accounting','new york')
+insert into dept (deptno,dname,loc)values 
+(20,'research','dallas')
+insert into dept (deptno,dname,loc)values 
+(30,'sales','chicago')
+
+insert into dept (deptno,dname,loc)values 
+(40,'operations','boston')
+select job,ename,deptno from emp s 
+where exists (select* from emp 
+    where s.empno=mgr) 
+order by empno
+select e.empno,e.ename,e.deptno 
+from emp e 
+join dept d 
+on e.deptno=d.deptno
